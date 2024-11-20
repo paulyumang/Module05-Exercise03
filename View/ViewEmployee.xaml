@@ -1,0 +1,154 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Module07DataAccess.ViewModel"
+             x:Class="Module07DataAccess.View.ViewEmployee"
+             Title="View Employee">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#B0BEC5" Offset="0.0" />
+            <GradientStop Color="#78909C" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,0" Spacing="25" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+
+            <Label
+                Text="Employee Management"
+                FontSize="36"
+                FontAttributes="Bold"
+                TextColor="White"
+                HorizontalOptions="Center"
+                Margin="0,10" />
+
+            <SearchBar Placeholder="Search by Name, Address, email, or ContactNo"
+                       Text="{Binding SearchText}"
+                       BackgroundColor="White"
+                       HeightRequest="50"
+                       HorizontalOptions="FillAndExpand"
+                       Margin="10,0" />
+
+            <Frame CornerRadius="10" Padding="5" Margin="0,10" HasShadow="True" BackgroundColor="White">
+                <ListView ItemsSource="{Binding FilteredEmployeeList}"
+                          SelectedItem="{Binding SelectedEmployee}"
+                          HasUnevenRows="True"
+                          SeparatorVisibility="Default"
+                          Margin="0"
+                          HorizontalOptions="FillAndExpand">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="10" Orientation="Vertical">
+                                    <Label Text="{Binding Name}"
+                                           FontSize="20"
+                                           TextColor="#37474F"
+                                           FontAttributes="Bold" />
+                                    <Label Text="{Binding FullInfo}"
+                                           FontSize="16"
+                                           TextColor="#90A4AE"
+                                           FontAttributes="Italic" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Frame>
+
+            <Button
+                Text="Load Data"
+                FontSize="18"
+                BackgroundColor="#00838F"
+                TextColor="White"
+                Padding="10"
+                CornerRadius="20"
+                Command="{Binding LoadDataCommand}"
+                HorizontalOptions="Center"
+                WidthRequest="200"
+                Margin="0,10" />
+
+            <Label Text="Add or Update Employee"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,10"
+                   TextColor="White" />
+
+            <Frame CornerRadius="10" Padding="20" Margin="0,10" BackgroundColor="White">
+                <VerticalStackLayout Spacing="15">
+                    <!-- Name Input -->
+                    <Frame CornerRadius="10" Padding="0" BackgroundColor="#ECEFF1" HasShadow="False">
+                        <Entry Placeholder="Name"
+                               Text="{Binding NewEmployeeName}"
+                               FontSize="18"
+                               BackgroundColor="Transparent" />
+                    </Frame>
+
+                    <!-- Address Input -->
+                    <Frame CornerRadius="10" Padding="0" BackgroundColor="#ECEFF1" HasShadow="False">
+                        <Entry Placeholder="Address"
+                               Text="{Binding NewEmployeeAddress}"
+                               FontSize="18"
+                               BackgroundColor="Transparent" />
+                    </Frame>
+
+                    <!-- Email Input -->
+                    <Frame CornerRadius="10" Padding="0" BackgroundColor="#ECEFF1" HasShadow="False">
+                        <Entry Placeholder="Email"
+                               Text="{Binding NewEmployeeemail}"
+                               FontSize="18"
+                               BackgroundColor="Transparent" />
+                    </Frame>
+
+                    <!-- Contact Number Input -->
+                    <Frame CornerRadius="10" Padding="0" BackgroundColor="#ECEFF1" HasShadow="False">
+                        <Entry Placeholder="Contact No"
+                               Text="{Binding NewEmployeeContactNo}"
+                               FontSize="18"
+                               BackgroundColor="Transparent" />
+                    </Frame>
+                </VerticalStackLayout>
+            </Frame>
+
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20" Margin="0,10">
+                <Button Text="Add Person"
+                        FontSize="18"
+                        BackgroundColor="#4CAF50"
+                        TextColor="White"
+                        Padding="10,5"
+                        CornerRadius="20"
+                        Command="{Binding AddEmployeeCommand}"
+                        WidthRequest="150"
+                        IsEnabled="{Binding IsEmployeeSelectedAdd}" />
+                <Button Text="Update Person"
+                        FontSize="18"
+                        BackgroundColor="#FFA000"
+                        TextColor="White"
+                        Padding="10,5"
+                        CornerRadius="20"
+                        Command="{Binding UpdateEmployeeCommand}"
+                        WidthRequest="150"
+                        IsEnabled="{Binding IsEmployeeSelected}" />
+                <Button Text="Delete Person"
+                        FontSize="18"
+                        BackgroundColor="#D32F2F"
+                        TextColor="White"
+                        Padding="10,5"
+                        CornerRadius="20"
+                        Command="{Binding DeleteEmployeeCommand}"
+                        WidthRequest="150"
+                        IsEnabled="{Binding IsEmployeeSelected}" />
+            </HorizontalStackLayout>
+
+            <Label
+                x:Name="ConnectionStatusLabel"
+                Text="{Binding StatusMessage}"
+                FontSize="16"
+                FontAttributes="Bold"
+                TextColor="{Binding StatusMessageColor}" 
+                HorizontalOptions="Center"
+                Margin="10" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
